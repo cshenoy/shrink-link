@@ -1,6 +1,7 @@
 package shrinklink
 
 import (
+	"errors"
 	"github.com/mediocregopher/radix.v2/pool"
 	"log"
 )
