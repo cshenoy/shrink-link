@@ -18,16 +18,16 @@ func init() {
 	}
 }
 
-func Lookup(hash string) error {
-	reply, err := db.Cmd("HGETALL", "album:"+id).Map()
-	if err != nil {
-		return nil, err
-	} else if len(reply) == 0 {
-		return nil, ErrNoAlbum
-	}
+// func Lookup(hash string) error {
+// 	reply, err := db.Cmd("HGETALL", "album:"+id).Map()
+// 	if err != nil {
+// 		return nil, err
+// 	} else if len(reply) == 0 {
+// 		return nil, ErrNoAlbum
+// 	}
 
-	return populateAlbum(reply)
-}
+// 	return populateAlbum(reply)
+// }
 
 func IncrementLikes(id string) error {
 	conn, err := db.Get()
