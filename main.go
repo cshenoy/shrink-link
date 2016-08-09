@@ -2,13 +2,14 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	shrinklink "github.com/cshenoy/shrinklink/shrinklink"
 	"github.com/julienschmidt/httprouter"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type Error struct {
@@ -40,19 +41,21 @@ func createHandler(responseWriter http.ResponseWriter, request *http.Request, _ 
 }
 
 func findHandler(responseWriter http.ResponseWriter, request *http.Request, ps httprouter.Params) {
-	log.Println("sup dawg", ps.ByName("hash"))
-	fmt.Fprintf(responseWriter, "%s", ps.ByName("hash"))
+	// log.Println("sup dawg", ps.ByName("hash"))
+	// fmt.Fprintf(responseWriter, "%s", ps.ByName("hash"))
 	// CheckHash
+	hash := ps.ByName("hash")
 	// If good -> redirect to long_url
+	if strings.EqualFold(hash, "blanc") {
+		http.Redirect(responseWriter, request, "http://corp.urbanstems.com/blanc", 301)
+	} else {
+		http.Redirect(responseWriter, request, "https://urbanstems.com", 301)
+	}
 	// If bad -> redirect to urbanstems.com
 }
 
 func indexHandler(responseWriter http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	http.Redirect(responseWriter, request, "https://urbanstems.com", 301)
-}
-
-func blancHandler(responseWriter http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	http.Redirect(responseWriter, request, "http://corp.urbanstems.com/blanc", 301)
 }
 
 func validToken(token string) bool {
@@ -69,7 +72,6 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/", indexHandler) // redirect to urbanstems.com
-	router.GET("/blanc", blancHandler)
 	router.GET("/:hash", findHandler)
 	router.POST("/api/url", createHandler)
 
