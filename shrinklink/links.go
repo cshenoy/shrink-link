@@ -2,7 +2,6 @@ package shrinklink
 
 import (
 	"github.com/mediocregopher/radix.v2/pool"
-	"github.com/mediocregopher/radix.v2/redis"
 )
 
 var db *pool.Pool
