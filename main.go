@@ -51,8 +51,8 @@ func indexHandler(responseWriter http.ResponseWriter, request *http.Request, _ h
 	http.Redirect(responseWriter, request, "https://urbanstems.com", 301)
 }
 
-func indexHandler(responseWriter http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	http.Redirect(responseWriter, request, "https://corp.urbanstems.com/blanc", 301)
+func blancHandler(responseWriter http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+	http.Redirect(responseWriter, request, "http://corp.urbanstems.com/blanc", 301)
 }
 
 func validToken(token string) bool {
