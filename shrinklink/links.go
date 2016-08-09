@@ -2,9 +2,12 @@ package shrinklink
 
 import (
 	"github.com/mediocregopher/radix.v2/pool"
+	"log"
 )
 
 var db *pool.Pool
+
+var ErrNoAlbum = errors.New("models: no album found")
 
 func init() {
 	var err error
@@ -14,7 +17,7 @@ func init() {
 	}
 }
 
-func Lookup(hash string) {
+func Lookup(hash string) error {
 	reply, err := db.Cmd("HGETALL", "album:"+id).Map()
 	if err != nil {
 		return nil, err
